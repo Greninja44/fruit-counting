@@ -1,0 +1,48 @@
+# Central configuration. Every value can be overridden on the command line of the scripts.
+seed: 42
+device: auto            # auto | cpu | cuda | cuda:0 ...
+
+classes:                # canonical fruit classes -> index used in our YOLO label files
+  - apple
+  - orange
+  - banana
+
+# Maps the class *names* a pretrained model emits to our canonical classes.
+# COCO-pretrained YOLO models know apple/orange/banana; everything else is dropped.
+# Fine-tuned models trained on our classes need no mapping (names match directly).
+pretrained_class_map:
+  apple: apple
+  orange: orange
+  banana: banana
+
+models:
+  detection:
+    name: yolo11m-det
+    weights: models/yolo11m.pt
+  segmentation:
+    name: yolo11m-seg
+    weights: models/yolo11m-seg.pt
+
+inference:
+  imgsz: 640
+  batch: 1
+  conf: 0.30            # operating threshold used for counting (tuned: scripts/tune.py)
+  iou: 0.5              # NMS IoU threshold (tuned)
+  max_det: 300
+  eval_conf: 0.001      # low threshold used to cache predictions for mAP curves
+  preprocess: none      # none | clahe | gamma | tile
+
+evaluation:
+  match_iou: 0.5        # IoU for P/R/F1 and count-level TP matching
+  mape_zero_policy: skip   # skip | epsilon  (images with 0 GT fruits)
+  dataset_root: data/processed/coco_fruit
+  split: test
+
+tracking:
+  tracker: bytetrack    # bytetrack | iou
+  min_track_frames: 3   # a track must persist this many frames to be counted as a unique fruit
+
+paths:
+  predictions: outputs/predictions
+  visualizations: outputs/visualizations
+  reports: outputs/reports

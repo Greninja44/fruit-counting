@@ -1,0 +1,13 @@
+# Install:  pip install -r requirements.txt && pip install -e .
+# On NVIDIA Jetson, install the JetPack-matched torch/torchvision wheels first (see README).
+numpy>=1.26
+opencv-python>=4.8
+PyYAML>=6.0
+pandas>=2.0
+scipy>=1.11
+lapx>=0.5.5        # ByteTrack association (ultralytics)
+ultralytics>=8.3
+torch>=2.1
+torchvision>=0.16
+gradio>=5.0
+pytest>=7.4

@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+data/raw/
+data/processed/
+models/*.pt
+models/*.onnx
+models/*.engine
+runs/
+outputs/**
+!outputs/**/.gitkeep
+*.mp4
+*.avi
+.env
