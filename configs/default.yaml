@@ -2,18 +2,14 @@
 seed: 42
 device: auto            # auto | cpu | cuda | cuda:0 ...
 
-classes:                # canonical fruit classes -> index used in our YOLO label files
-  - apple
+classes:                # the only class counted: oranges (other fruit is out of scope)
   - orange
-  - banana
 
 # Maps the class *names* a pretrained model emits to our canonical classes.
-# COCO-pretrained YOLO models know apple/orange/banana; everything else is dropped.
-# Fine-tuned models trained on our classes need no mapping (names match directly).
+# COCO-pretrained YOLO models also know apple/banana; those are dropped, only 'orange' is kept.
+# Fine-tuned models trained on our class need no mapping (names match directly).
 pretrained_class_map:
-  apple: apple
   orange: orange
-  banana: banana
 
 models:
   detection:
@@ -35,7 +31,7 @@ inference:
 evaluation:
   match_iou: 0.5        # IoU for P/R/F1 and count-level TP matching
   mape_zero_policy: skip   # skip | epsilon  (images with 0 GT fruits)
-  dataset_root: data/processed/coco_fruit
+  dataset_root: data/processed/orange
   split: test
 
 tracking:

@@ -20,7 +20,7 @@ src/fruitcount/
   visualization/draw_results.py
 scripts/                    prepare_data, validate_dataset, tag_conditions, train, predict_image, predict_video,
                             evaluate, benchmark, crosscheck_coco_eval
-app.py                      Gradio demo
+app.py                      Gradio live-camera orange counter (no file upload)
 tests/                      pytest (mock model; no weights/GPU/network needed)
 docs/                       dataset_setup.md, evaluation.md, error_analysis.md
 ```
@@ -55,7 +55,10 @@ cd models && for m in yolo11n yolo11s yolo11n-seg yolo11s-seg; do
 | Robustness (illumination / small objects) | `python scripts/evaluate.py --approaches detect segment --preprocess none clahe gamma tile` |
 | Evaluate fine-tuned weights | `python scripts/evaluate.py --approaches detect --weights runs/fruit_detect/weights/best.pt --tag finetuned` |
 | Speed benchmark | `python scripts/benchmark.py --batch-sizes 1 4` |
-| Demo app | `python app.py` (http://localhost:7860) |
+| Live orange counter (webcam only) | `python app.py [--camera 0]` (http://localhost:7860) |
+| Build orange-only dataset (class 0 = orange) | `python scripts/make_orange.py` |
+| Package it for the GPU PC | `python scripts/make_pc_bundle.py --out ~/orange_pc_bundle.tar` |
+| Evaluate on the orange test sets | `python scripts/evaluate.py --config configs/default.yaml --split test_coco` (also `--split test`) |
 | Tests | `python -m pytest` |
 
 Common options: `--conf`, `--iou`, `--imgsz`, `--device {auto,cpu,cuda:0}`, `--config path.yaml`, `--weights`.
